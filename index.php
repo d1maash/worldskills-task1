@@ -53,20 +53,18 @@ $avatar = getAvatar($user_id);
     <!-- Add the following script -->
     <script>
         function enterRoom(roomId) {
-            // Make an AJAX request to update the user's current room
+        
             $.post('update_current_room.php', { room_id: roomId }, function (data) {
-                // Handle the response if needed
+              
                 console.log(data);
 
-                // Redirect to the room page after entering the room
                 window.location.href = 'rooms/room.php?id=' + roomId;
             });
         }
 
         function displayUsersInRoom(roomId) {
-            // Make an AJAX request to get the list of users in the room
             $.get('get_users_in_room.php', { room_id: roomId }, function (data) {
-                // Display the list of users in the room
+
                 console.log("Users in Room " + roomId + ":", data);
                 alert("Users in Room " + roomId + ": " + data.join(', '));
             });
@@ -77,7 +75,7 @@ $avatar = getAvatar($user_id);
 
 <body>
     <div class="main-container">
-        <!-- Display user profile information -->
+      
      
 <style>
     @media only screen and (max-width: 1199px) {
@@ -111,7 +109,7 @@ $avatar = getAvatar($user_id);
 <br><br><br><br><br>
     <h2>Rooms</h2>
     <ul>
-        <!-- Add the following lines to display room information -->
+      
         <?php
         $allRooms = getAllRooms();
         foreach ($allRooms as $room) {
@@ -120,7 +118,7 @@ $avatar = getAvatar($user_id);
             ?> 
             <li onclick="enterRoom(<?php echo $room_id; ?>); displayUsersInRoom(<?php echo $room_id; ?>);">
                 <?php echo $room['name']; ?>
-                <!-- Display the list of users and their online duration in the room -->
+              
                 <ul>
                     <?php foreach ($usersInRoom as $user): ?>
                         <li>
@@ -135,7 +133,7 @@ $avatar = getAvatar($user_id);
             <br><br>
         <?php include('chat.php'); ?>
         </ul>
-        <!--end navigation-->
+    
       </div>
 
 </div>
@@ -155,38 +153,28 @@ $avatar = getAvatar($user_id);
         </div>
       </div>
     </aside>
-        
-        <!-- Display chat window -->
+   
      
     <main class="page-content">
         
 <img src="assets\office base clean\office_base_clean.jpg" alt="" width="100%">
                     </main>
         
-        <!-- Display virtual office layout and user information -->
+   
         
 </div>
 
     </div>
 
-    <!-- Include jQuery library in your HTML if not already included -->    
-
-<!-- Add the following script in your HTML -->
+  
 <script>
 function pollForUpdates() {
-    // Make an AJAX request to update the list of rooms
     $.get('update_rooms.php', function (data) {
-        // Handle the received data, e.g., update room list
         console.log("Received data:", data);
-
-        // You can update the UI with the new room data here
-
-        // Schedule the next poll after a delay (e.g., 5 seconds)
         setTimeout(pollForUpdates, 5000);
     });
 }
 
-// Start polling for updates when the page loads
 $(document).ready(function () {
     pollForUpdates();
 });
